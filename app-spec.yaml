@@ -8,15 +8,10 @@ services:
     branch: main
     deploy_on_push: true
   
-  # Build configuration
-  build_command: |
-    echo "Configuring Poetry for production..."
-    poetry config virtualenvs.create false
-    poetry lock --no-update
-    poetry install --only main
-    
+  # Build configuration - Let buildpack handle everything automatically
+  
   # Run configuration
-  run_command: poetry run uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+  run_command: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
   
   # Environment configuration
   environment_slug: python
