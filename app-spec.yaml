@@ -10,9 +10,7 @@ services:
   
   # Build configuration
   build_command: |
-    echo "Installing Python dependencies..."
-    pip install --upgrade pip
-    pip install poetry
+    echo "Configuring Poetry for production..."
     poetry config virtualenvs.create false
     poetry lock --no-update
     poetry install --only main
