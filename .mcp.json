@@ -1,0 +1,34 @@
+{
+    "mcpServers": {
+      "supabase": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@supabase/mcp-server-supabase@latest",
+          "--access-token",
+          "sbp_f6cbad50fab0f8027eff31fabd6d9830a87b05bc"
+        ]
+      },
+      "context7": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@upstash/context7-mcp@latest"
+        ]
+      },
+      "playwright": {
+        "command": "npx",
+        "args": [
+          "@playwright/mcp@latest"
+        ]
+      },
+      "@21st-dev/magic": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@21st-dev/magic@latest",
+          "API_KEY=\"4aa9d69f12bfb6dedfeae8a3ecfb7536d408848f7494cdbcdc8b34a0a8e24445\""
+        ]
+      }
+    }
+  }

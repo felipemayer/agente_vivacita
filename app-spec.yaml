@@ -1,0 +1,69 @@
+name: agente-vivacita
+
+services:
+- name: api
+  source_dir: /
+  github:
+    repo: felipemayer/agente_vivacita
+    branch: main
+    deploy_on_push: true
+  
+  # Build configuration
+  build_command: |
+    echo "Installing Python dependencies..."
+    pip install --upgrade pip
+    pip install poetry
+    poetry config virtualenvs.create false
+    poetry install --no-dev
+    
+  # Run configuration
+  run_command: poetry run uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+  
+  # Environment configuration
+  environment_slug: python
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  
+  # Health check
+  http_port: 8080
+  
+  # Environment variables
+  envs:
+  - key: ENVIRONMENT
+    value: production
+  - key: DEBUG
+    value: "false"
+  - key: PORT
+    value: "8080"
+  - key: SUPABASE_URL
+    value: https://xklzvcvvahvfqitrwyaq.supabase.co
+  - key: SUPABASE_KEY
+    value: ${SUPABASE_KEY}
+  - key: SUPABASE_SERVICE_ROLE_KEY
+    value: ${SUPABASE_SERVICE_ROLE_KEY}
+  - key: OPENAI_API_KEY
+    value: ${OPENAI_API_KEY}
+  - key: EVOLUTION_API_URL
+    value: ${EVOLUTION_API_URL}
+  - key: EVOLUTION_API_KEY
+    value: ${EVOLUTION_API_KEY}
+  - key: EVOLUTION_API_INSTANCE
+    value: bassan-vivacita
+  - key: SECRET_KEY
+    value: ${SECRET_KEY}
+  - key: OPENROUTER_API_KEY
+    value: ${OPENROUTER_API_KEY}
+  
+  # Routes for custom domains (opcional)
+  routes:
+  - path: /
+  
+# Opcional: Workers para background tasks
+# workers:
+# - name: background-worker
+#   source_dir: /
+#   build_command: poetry install --no-dev
+#   run_command: poetry run python -m src.workers.background
+#   environment_slug: python
+#   instance_count: 1
+#   instance_size_slug: basic-xxs
